@@ -18,20 +18,18 @@ if VERSION is None:
     raise RuntimeError(
         'Unable to find version string in file: {0}'.format(VERSION_FILE))
 
-setup(name='hdlparse',
+setup(name='hdlparse-fork',
       version=VERSION,
-      author='Kevin Thibedeau',
-      author_email='kevin.thibedeau@gmail.com',
-      url='http://kevinpt.github.io/hdlparse',
-      download_url='http://kevinpt.github.io/hdlparse',
+      author='Elliott Villars',
+      author_email='elliottvillars@gmail.com',
       description='HDL parser',
       long_description=long_description,
       platforms=['Any'],
       install_requires=[],
-      packages=['hdlparse'],
+      packages=['hdlparse-fork'],
       py_modules=[],
       include_package_data=True,
-      use_2to3=True,
+      use_2to3=False,
       keywords='HDL parser',
       license='MIT',
       classifiers=[
@@ -39,7 +37,6 @@ setup(name='hdlparse',
           'Operating System :: OS Independent',
           'Intended Audience :: Developers',
           'Topic :: Text Processing :: General', 'Natural Language :: English',
-          'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
           'License :: OSI Approved :: MIT License'
       ])

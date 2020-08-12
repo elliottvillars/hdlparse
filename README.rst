@@ -1,31 +1,26 @@
-
 ========
 Hdlparse
 ========
+Forked from `here.<https://github.com/kevinpt/hdlparse>`_ in order to update to Python 3.
 
 Hdlparse is a simple package implementing a rudimentary parser for VHDL and Verilog. It is not capable of fully parsing the entire language. Rather, it is meant to extract enough key information from a source file to create generated documentation.
-
+..
 This library is used by the `Symbolator <https://github.com/kevinpt/symbolator>`_ diagram generator.
 
 For VHDL this library can extract component, subprogram, type, subtype, and constant declarations from a package. For Verilog it can extract module declarations (both 1995 and 2001 syntax).
 
+This is an actively maintained fork of the original project migrated to Python 3.
 
 Requirements
 ------------
 
-Hdlparse requires either Python 2.7 or Python 3.x and no additional libraries.
+Hdlparse requires Python 3.x and no additional libraries.
 
-The installation script depends on setuptools. The source is written in
-Python 2.7 syntax but will convert cleanly to Python 3 when the installer
-passes it through 2to3.
-
+The installation script depends on setuptools. 
 
 Download
 --------
 
-You can access the Hdlparse Git repository from `Github
-<https://github.com/kevinpt/hdlparse>`_. You can install direct from PyPI with the "pip"
-command if you have it available.
 
 Installation
 ------------
@@ -38,7 +33,7 @@ You need to have the Python setuptools installed first. If your OS has a package
 
   > pip install setuptools
 
-The easiest way to install Hdlparse is from `PyPI <https://pypi.python.org/pypi/hdlparse>`_.
+The easiest way to install hdlparse is from `PyPI <https://pypi.python.org/pypi/hdlparse-fork>`_.
 
 .. code-block:: sh
 
@@ -55,9 +50,9 @@ You can also use ``pip`` to get the latest development code from Github:
 
 .. code-block:: sh
 
-  > pip install --upgrade https://github.com/kevinpt/hdlparse/tarball/master
+  > pip install --upgrade https://github.com/elliottvillars/hdlparse/tarball/master
 
-If you manually downloaded a source package or created a clone with Git you can install with the following command run from the base Hdlparse directory:
+If you manually downloaded a source package or created a clone with Git you can install with the following command run from the base hdlparse directory:
 
 .. code-block:: sh
 
@@ -65,7 +60,7 @@ If you manually downloaded a source package or created a clone with Git you can 
 
 On Linux systems you may need to install with root privileges using the *sudo* command.
 
-After a successful install the Hdlparse library will be available.
+After a successful install the hdlparse library will be available.
 
 
 Documentation
