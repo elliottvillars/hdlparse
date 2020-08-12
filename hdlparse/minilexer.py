@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2017 Kevin Thibedeau
 # Distributed under the terms of the MIT license
-from __future__ import print_function
 
 import re
-'''Minimalistic lexer engine inspired by the PyPigments RegexLexer'''
+#'''Minimalistic lexer engine inspired by the PyPigments RegexLexer'''
 
-__version__ = '1.0.5'
+__version__ = '2.0.0'
 
 
-class MiniLexer(object):
+class MiniLexer():
     '''Simple lexer state machine with regex matching rules'''
     def __init__(self, tokens, flags=re.MULTILINE):
         '''Create a new lexer
-    
+
     Args:
-      tokens (dict(match rules)): Hierarchical dict of states with a list of regex patterns and transitions
+      tokens (dict(match rules)): Hierarchical dict of states with list of regex patterns & transitions
       flags (int): Optional regex flags
     '''
         self.tokens = {}
 
         # Pre-process the state definitions
-        for state, patterns in tokens.iteritems():
+        for state, patterns in tokens.items():
             full_patterns = []
             for p in patterns:
                 pat = re.compile(p[0], flags)

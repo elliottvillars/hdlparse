@@ -5,21 +5,21 @@ with open('README.rst') as fh:
     long_description = fh.read()
 
 # Scan the script for the version string
-version_file = 'hdlparse/minilexer.py'
-version = None
-with open(version_file) as fh:
+VERSION_FILE = 'hdlparse/minilexer.py'
+VERSION = None
+with open(VERSION_FILE) as fh:
     try:
-        version = [line.split('=')[1].strip().strip("'") for line in fh if \
+        VERSION = [line.split('=')[1].strip().strip("'") for line in fh if \
             line.startswith('__version__')][0]
     except IndexError:
         pass
 
-if version is None:
+if VERSION is None:
     raise RuntimeError(
-        'Unable to find version string in file: {0}'.format(version_file))
+        'Unable to find version string in file: {0}'.format(VERSION_FILE))
 
 setup(name='hdlparse',
-      version=version,
+      version=VERSION,
       author='Kevin Thibedeau',
       author_email='kevin.thibedeau@gmail.com',
       url='http://kevinpt.github.io/hdlparse',

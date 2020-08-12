@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2017 Kevin Thibedeau
 # Distributed under the terms of the MIT license
-from __future__ import print_function
 
-import re, os, io, ast
+import re
+import os
+import io
+import ast
 from pprint import pprint
 from minilexer import MiniLexer
-'''VHDL documentation parser'''
+#'''VHDL documentation parser'''
 
 vhdl_tokens = {
     'root': [
@@ -145,7 +147,7 @@ vhdl_tokens = {
 VhdlLexer = MiniLexer(vhdl_tokens, flags=re.MULTILINE | re.IGNORECASE)
 
 
-class VhdlObject(object):
+class VhdlObject():
     '''Base class for parsed VHDL objects
 
   Args:
@@ -158,9 +160,9 @@ class VhdlObject(object):
         self.desc = desc
 
 
-class VhdlParameter(object):
+class VhdlParameter():
     '''Parameter to subprograms, ports, and generics
-  
+
   Args:
     name (str): Name of the object
     mode (str): Direction mode for the parameter
@@ -209,7 +211,7 @@ class VhdlPackage(VhdlObject):
 class VhdlType(VhdlObject):
     '''Type definition
 
-  Args:  
+  Args:
     name (str): Name of the type
     package (str): Package containing the type
     type_of (str): Object type of this type definition
@@ -227,7 +229,7 @@ class VhdlType(VhdlObject):
 
 class VhdlSubtype(VhdlObject):
     '''Subtype definition
-  
+
   Args:
     name (str): Name of the subtype
     package (str): Package containing the subtype
@@ -246,7 +248,7 @@ class VhdlSubtype(VhdlObject):
 
 class VhdlConstant(VhdlObject):
     '''Constant definition
-  
+
   Args:
     name (str): Name of the constant
     package (str): Package containing the constant
@@ -265,7 +267,7 @@ class VhdlConstant(VhdlObject):
 
 class VhdlFunction(VhdlObject):
     '''Function declaration
-  
+
   Args:
     name (str): Name of the function
     package (str): Package containing the function
@@ -305,7 +307,7 @@ class VhdlProcedure(VhdlObject):
 
 class VhdlComponent(VhdlObject):
     '''Component declaration
-  
+
   Args:
     name (str): Name of the component
     package (str): Package containing the component
@@ -332,22 +334,23 @@ class VhdlComponent(VhdlObject):
         return "VhdlComponent('{}')".format(self.name)
 
     def dump(self):
-        print('VHDL component: {}'.format(self.name))
+        print(('VHDL component: {}'.format(self.name)))
         for p in self.ports:
-            print('\t{} ({}), {} ({})'.format(p.name, type(p.name),
-                                              p.data_type, type(p.data_type)))
+            print(('\t{} ({}), {} ({})'.format(p.name,
+                                               type(p.name), p.data_type,
+                                               type(p.data_type))))
 
 
 def parse_vhdl_file(fname):
     '''Parse a named VHDL file
-  
+
   Args:
     fname(str): Name of file to parse
   Returns:
     Parsed objects.
   '''
-    with open(fname, 'rt') as fh:
-        text = fh.read()
+    with open(fname, 'rt') as file_handle:
+        text = file_handle.read()
     return parse_vhdl(text)
 
 
@@ -537,7 +540,7 @@ def parse_vhdl(text):
 
 def subprogram_prototype(vo):
     '''Generate a canonical prototype string
-  
+
   Args:
     vo (VhdlFunction, VhdlProcedure): Subprogram object
   Returns:
@@ -561,7 +564,7 @@ def subprogram_prototype(vo):
 
 def subprogram_signature(vo, fullname=None):
     '''Generate a signature string
-  
+
   Args:
     vo (VhdlFunction, VhdlProcedure): Subprogram object
   Returns:
@@ -583,7 +586,7 @@ def subprogram_signature(vo, fullname=None):
 
 def is_vhdl(fname):
     '''Identify file as VHDL by its extension
-  
+
   Args:
     fname (str): File name to check
   Returns:
@@ -592,7 +595,7 @@ def is_vhdl(fname):
     return os.path.splitext(fname)[1].lower() in ('.vhdl', '.vhd')
 
 
-class VhdlExtractor(object):
+class VhdlExtractor():
     '''Utility class that caches parsed objects and tracks array type definitions
 
   Args:
@@ -607,7 +610,7 @@ class VhdlExtractor(object):
 
     def extract_objects(self, fname, type_filter=None):
         '''Extract objects from a source file
-    
+
     Args:
       fname (str): File to parse
       type_filter (class, optional): Object class to filter results
@@ -618,8 +621,8 @@ class VhdlExtractor(object):
         if fname in self.object_cache:
             objects = self.object_cache[fname]
         else:
-            with io.open(fname, 'rt', encoding='latin-1') as fh:
-                text = fh.read()
+            with io.open(fname, 'rt', encoding='latin-1') as file_handle:
+                text = file_handle.read()
                 objects = parse_vhdl(text)
                 self.object_cache[fname] = objects
                 self._register_array_types(objects)
@@ -648,7 +651,7 @@ class VhdlExtractor(object):
 
     def is_array(self, data_type):
         '''Check if a type is a known array type
-    
+
     Args:
       data_type (str): Name of type to check
     Returns:
@@ -662,7 +665,7 @@ class VhdlExtractor(object):
 
     def _add_array_types(self, type_defs):
         '''Add array data types to internal registry
-    
+
     Args:
       type_defs (dict): Dictionary of type definitions
     '''
@@ -671,7 +674,7 @@ class VhdlExtractor(object):
 
     def load_array_types(self, fname):
         '''Load file of previously extracted data types
-    
+
     Args:
       fname (str): Name of file to load array database from
     '''
@@ -688,7 +691,7 @@ class VhdlExtractor(object):
 
     def save_array_types(self, fname):
         '''Save array type registry to a file
-    
+
     Args:
       fname (str): Name of file to save array database to
     '''
@@ -698,7 +701,7 @@ class VhdlExtractor(object):
 
     def _register_array_types(self, objects):
         '''Add array type definitions to internal registry
-    
+
     Args:
       objects (list of VhdlType or VhdlSubtype): Array types to track
     '''
@@ -716,7 +719,7 @@ class VhdlExtractor(object):
         }
 
         # Find all subtypes of an array type
-        for k, v in subtypes.iteritems():
+        for k, v in list(subtypes.items()):
             while v in subtypes:  # Follow subtypes of subtypes
                 v = subtypes[v]
             if v in self.array_types:
@@ -735,7 +738,7 @@ class VhdlExtractor(object):
 
 if __name__ == '__main__':
     ve = VhdlExtractor()
-    code = '''
+    CODE = '''
 package foo is
   function afunc(q,w,e : std_ulogic; h,j,k : unsigned) return std_ulogic;
 
@@ -751,18 +754,18 @@ package foo is
 end package;
   '''
 
-    objs = ve.extract_objects_from_source(code)
+    objs = ve.extract_objects_from_source(CODE)
 
     for o in objs:
-        print(o.name)
+        print((o.name))
         try:
-            for p in o.parameters:
-                print(p)
+            for par in o.parameters:
+                print(par)
         except:
             pass
 
         try:
-            for p in o.ports:
-                print(p)
+            for por in o.ports:
+                print(por)
         except:
             pass

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2017 Kevin Thibedeau
 # Distributed under the terms of the MIT license
-from __future__ import print_function
 
-import re, os, io, ast, pprint, collections
+import os
+import io
+import collections
 from minilexer import MiniLexer
-'''Verilog documentation parser'''
+#'''Verilog documentation parser'''
 
 verilog_tokens = {
     'root': [
@@ -50,7 +51,7 @@ verilog_tokens = {
 VerilogLexer = MiniLexer(verilog_tokens)
 
 
-class VerilogObject(object):
+class VerilogObject():
     '''Base class for parsed Verilog objects'''
     def __init__(self, name, desc=None):
         self.name = name
@@ -58,7 +59,7 @@ class VerilogObject(object):
         self.desc = desc
 
 
-class VerilogParameter(object):
+class VerilogParameter():
     '''Parameter and port to a module'''
     def __init__(self,
                  name,
@@ -211,7 +212,7 @@ def parse_verilog(text):
             for i in param_items:
                 ports[i] = VerilogParameter(i, mode, ptype)
 
-            vobj = VerilogModule(name, ports.values(), generics,
+            vobj = VerilogModule(name, list(ports.values()), generics,
                                  dict(sections), metacomments)
             objects.append(vobj)
             last_item = None
