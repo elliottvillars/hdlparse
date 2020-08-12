@@ -7,7 +7,7 @@ import os
 import io
 import ast
 from pprint import pprint
-from minilexer import MiniLexer
+from hdlparse.minilexer import MiniLexer
 #'''VHDL documentation parser'''
 
 vhdl_tokens = {
@@ -335,10 +335,10 @@ class VhdlComponent(VhdlObject):
 
     def dump(self):
         print(('VHDL component: {}'.format(self.name)))
-        for p in self.ports:
-            print(('\t{} ({}), {} ({})'.format(p.name,
-                                               type(p.name), p.data_type,
-                                               type(p.data_type))))
+        for port in self.ports:
+            print(('\t{} ({}), {} ({})'.format(port.name,
+                                               type(port.name), port.data_type,
+                                               type(port.data_type))))
 
 
 def parse_vhdl_file(fname):
@@ -679,8 +679,8 @@ class VhdlExtractor():
       fname (str): Name of file to load array database from
     '''
         type_defs = ''
-        with open(fname, 'rt') as fh:
-            type_defs = fh.read()
+        with open(fname, 'rt') as file_handle:
+            type_defs = file_handle.read()
 
         try:
             type_defs = ast.literal_eval(type_defs)
@@ -696,8 +696,8 @@ class VhdlExtractor():
       fname (str): Name of file to save array database to
     '''
         type_defs = {'arrays': sorted(list(self.array_types))}
-        with open(fname, 'wt') as fh:
-            pprint(type_defs, stream=fh)
+        with open(fname, 'wt') as file_handle:
+            pprint(type_defs, stream=file_handle)
 
     def _register_array_types(self, objects):
         '''Add array type definitions to internal registry
@@ -710,8 +710,8 @@ class VhdlExtractor():
             o for o in objects
             if isinstance(o, VhdlType) and o.type_of == 'array_type'
         ]
-        for t in types:
-            self.array_types.add(t.name)
+        for type_ in types:
+            self.array_types.add(type_.name)
 
         subtypes = {
             o.name: o.base_type

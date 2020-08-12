@@ -5,7 +5,7 @@
 import os
 import io
 import collections
-from minilexer import MiniLexer
+from hdlparse.minilexer import MiniLexer
 #'''Verilog documentation parser'''
 
 verilog_tokens = {
@@ -108,8 +108,8 @@ def parse_verilog_file(fname):
   Returns:
     List of parsed objects.
   '''
-    with open(fname, 'rt') as fh:
-        text = fh.read()
+    with open(fname, 'rt') as file_handle:
+        text = file_handle.read()
     return parse_verilog(text)
 
 
@@ -124,13 +124,13 @@ def parse_verilog(text):
     lex = VerilogLexer
 
     name = None
-    kind = None
-    saved_type = None
+    # kind = None
+    # saved_type = None
     mode = 'input'
     ptype = 'wire'
 
     metacomments = []
-    parameters = []
+    # parameters = []
     param_items = []
 
     generics = []
@@ -138,7 +138,7 @@ def parse_verilog(text):
     sections = []
     port_param_index = 0
     last_item = None
-    array_range_start_pos = 0
+    # array_range_start_pos = 0
 
     objects = []
 
@@ -232,7 +232,7 @@ def is_verilog(fname):
     return os.path.splitext(fname)[1].lower() in ('.vlog', '.v')
 
 
-class VerilogExtractor(object):
+class VerilogExtractor():
     '''Utility class that caches parsed objects'''
     def __init__(self):
         self.object_cache = {}
@@ -250,8 +250,8 @@ class VerilogExtractor(object):
         if fname in self.object_cache:
             objects = self.object_cache[fname]
         else:
-            with io.open(fname, 'rt', encoding='utf-8') as fh:
-                text = fh.read()
+            with io.open(fname, 'rt', encoding='utf-8') as file_handle:
+                text = file_handle.read()
                 objects = parse_verilog(text)
                 self.object_cache[fname] = objects
 

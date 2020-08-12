@@ -20,7 +20,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
-
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -30,7 +29,9 @@ sys.path.insert(0, os.path.abspath('..'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.githubpages', 'sphinx.ext.autodoc', 'sphinx.ext.napoleon']
+extensions = [
+    'sphinx.ext.githubpages', 'sphinx.ext.autodoc', 'sphinx.ext.napoleon'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -45,25 +46,27 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Hdlparse'
-copyright = u'2017, Kevin Thibedeau'
-author = u'Kevin Thibedeau'
+project = 'Hdlparse'
+copyright = '2017, Kevin Thibedeau'
+author = 'Kevin Thibedeau'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 
+
 def get_package_version(verfile):
-  '''Scan the script for the version string'''
-  version = None
-  with open(verfile) as fh:
-      try:
-          version = [line.split('=')[1].strip().strip("'") for line in fh if \
-              line.startswith('__version__')][0]
-      except IndexError:
-          pass
-  return version
+    '''Scan the script for the version string'''
+    version = None
+    with open(verfile) as fh:
+        try:
+            version = [line.split('=')[1].strip().strip("'") for line in fh if \
+                line.startswith('__version__')][0]
+        except IndexError:
+            pass
+    return version
+
 
 # The short X.Y version.
 version = get_package_version('../hdlparse/minilexer.py')
@@ -88,7 +91,6 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
-
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -102,13 +104,13 @@ html_theme = 'alabaster'
 #
 # html_theme_options = {}
 html_theme_options = {
-  'description': 'HDL parsing library',
-  'show_powered_by': False,
-  'logo_text_align': 'center',
-  'font_family': 'Verdana, Geneva, sans-serif',
-  'github_user': 'kevinpt',
-  'github_repo': 'hdlparse',
-  'github_button': True
+    'description': 'HDL parsing library',
+    'show_powered_by': False,
+    'logo_text_align': 'center',
+    'font_family': 'Verdana, Geneva, sans-serif',
+    'github_user': 'kevinpt',
+    'github_repo': 'hdlparse',
+    'github_button': True
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -124,28 +126,21 @@ html_static_path = ['_static']
 html_sidebars = {
     '**': [
         'about.html',
-        'relations.html', # needs 'show_related': True theme option to display
+        'relations.html',  # needs 'show_related': True theme option to display
         'localtoc.html',
         'projects.html',
         'searchbox.html'
     ],
-    
     'index': [
-        'about.html',
-        'download.html',
-        'relations.html',
-        'localtoc.html',
-        'projects.html',
-        'searchbox.html'
+        'about.html', 'download.html', 'relations.html', 'localtoc.html',
+        'projects.html', 'searchbox.html'
     ]
 }
-
 
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'HdlParsedoc'
-
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -171,20 +166,15 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'HdlParse.tex', u'HdlParse Documentation',
-     u'Kevin Thibedeau', 'manual'),
+    (master_doc, 'HdlParse.tex', 'HdlParse Documentation', 'Kevin Thibedeau',
+     'manual'),
 ]
-
 
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'hdlparse', u'HdlParse Documentation',
-     [author], 1)
-]
-
+man_pages = [(master_doc, 'hdlparse', 'HdlParse Documentation', [author], 1)]
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -192,10 +182,6 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'HdlParse', u'HdlParse Documentation',
-     author, 'HdlParse', 'One line description of project.',
-     'Miscellaneous'),
+    (master_doc, 'HdlParse', 'HdlParse Documentation', author, 'HdlParse',
+     'One line description of project.', 'Miscellaneous'),
 ]
-
-
-
